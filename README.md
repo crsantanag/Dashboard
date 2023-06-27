@@ -9,7 +9,7 @@ Este proyecto permite graficar una serie de indicadores económicos que se usan 
 
 ## Visuals
 
-![Captura de pantalla](./images/imagen.jpg)
+![Captura de pantalla](./assets/img/magen.jpg)
 
 ## Inicio
 
