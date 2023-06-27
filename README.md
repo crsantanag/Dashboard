@@ -5,7 +5,7 @@ Indicadores con HTML, CSS y JavaScript; Chart.js y API
 
 ## Descripción
 
-Este proyecto permite graficar una serie de indicadores económicos que se usan en Chile (Imacec, Tpm, Uf, Ipc, Dólar y euro) entre los años 2000 y 2023.
+Este proyecto permite graficar una serie de indicadores económicos que se usan en Chile (Imacec, Tpm, Uf, Ipc, Dólar y Euro) entre los años 2000 y 2023.
 
 ## Visuals
 
