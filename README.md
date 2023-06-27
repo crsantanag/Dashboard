@@ -1,5 +1,5 @@
 ![Banner](/assets/img/banner.jpg)
-# DashboardChar
+# Dashboard
 
 Indicadores con HTML, CSS y JavaScript; Chart.js y API
 
