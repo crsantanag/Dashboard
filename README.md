@@ -1,4 +1,4 @@
-![Banner](/images/banner.jpg)
+![Banner](/assets/img/banner.jpg)
 # DashboardChar
 
 Indicadores con HTML, CSS y JavaScript; Chart.js y API
@@ -9,7 +9,7 @@ Este proyecto permite graficar una serie de indicadores económicos que se usan 
 
 ## Visuals
 
-![Captura de pantalla](./assets/img/magen.jpg)
+![Captura de pantalla](/assets/img/magen.jpg)
 
 ## Inicio
 
