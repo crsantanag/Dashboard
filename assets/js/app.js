@@ -108,7 +108,7 @@ async function traeDatosSerie(urlSerie, titulo, subTitulo, ejeX, ejeY) {
 
     dataSerie.serie.reverse();
     createGraph(dataSerie, titulo, subTitulo, ejeX, ejeY);
-    window.location.href = "#grafico"
+    window.location.href = "#grafico";
   }
   
   catch (error) {
