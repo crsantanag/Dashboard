@@ -7,7 +7,7 @@ const botonIpc = document.getElementById("botonIpc");
 const botonDolar = document.getElementById("botonDolar");
 const botonEuro = document.getElementById("botonEuro");
 
-const aoSeleccionado = document.getElementById('seleccionaAo');
+const yearSeleccionado = document.getElementById('seleccionaYear');
 
 const imacec = document.getElementById("imacec");
 const tpm = document.getElementById("tpm");
@@ -16,31 +16,17 @@ const ipc = document.getElementById("ipc");
 const dolar = document.getElementById("dolar");
 const euro = document.getElementById("euro");
 
+const urlDatos = `https://mindicador.cl/api`;
+
 var colorActual = document.getElementById("botonImacec").style.backgroundColor;
 var indicador = "imacec";
 var año = "2023"
 
-const urlDatos = `https://mindicador.cl/api`;
+obtenerDatos(urlDatos);
 
-const obtenerDatos = async () => {
-  const urlIndicadores = `https://mindicador.cl/api`;
-  const respIndicadores = await fetch(urlIndicadores);
-  const dataIndicadores = await respIndicadores.json();
-
-  console.log(dataIndicadores);
-
-  imacec.innerHTML = `Índice Mensual de Actividad Económica ${dataIndicadores.imacec.valor}%`;
-  tpm.innerHTML = `Tasa de Política Monetaria ${dataIndicadores.tpm.valor}%`;
-  uf.innerHTML = `Valor Unidad de Fomento $${dataIndicadores.uf.valor.toLocaleString()}`;
-  ipc.innerHTML = `Índice de Precios al Consumidor ${dataIndicadores.ipc.valor}%`;
-  dolar.innerHTML = `Valor del Dólar Observado $${dataIndicadores.dolar.valor.toLocaleString()}`;
-  euro.innerHTML = `Valor del Euro $${dataIndicadores.euro.valor.toLocaleString()}`;
-};
-
-obtenerDatos();
-
-aoSeleccionado.addEventListener('change', function() {
-  año = aoSeleccionado.value;
+yearSeleccionado.addEventListener('change', function (e) {
+  e.preventDefault();
+  año = yearSeleccionado.value;
   const viejoIndicador = indicador.charAt(0).toUpperCase() + indicador.slice(1);
 
   const viejoElementoPorId = document.getElementById(`boton${viejoIndicador}`);
@@ -48,60 +34,86 @@ aoSeleccionado.addEventListener('change', function() {
   viejoElementoPorId.innerText = "Graficar Serie";
 });
 
-botonImacec.addEventListener("click", (e) => {
+botonImacec.addEventListener("click", function (e) {
   e.preventDefault();
   coloresBoton(indicador, colorActual, "Imacec")
   indicador = "imacec";
-  traeDatosSerie(indicador+"/"+año, 'Índice Mensual de Actividad Económica', 'Indicador Mensual - Valor Porcentual', 'MES', 'PORCENTAJE');
+  traeDatosSerie(urlDatos+"/"+indicador+"/"+año, 'Índice Mensual de Actividad Económica', 'Indicador Mensual - Valor Porcentual', 'MES', 'PORCENTAJE');
 
 });
 
-botonTpm.addEventListener("click", (e) => {
+botonTpm.addEventListener("click", function (e) {
   e.preventDefault();
   coloresBoton(indicador, colorActual, "Tpm")
   indicador = "tpm"
-  traeDatosSerie(indicador+"/"+año, 'Tasa de Política Monetaria', 'Indicador Diario - Valor Porcentual', 'DÍA', 'PORCENTAJE');
+  traeDatosSerie(urlDatos+"/"+indicador+"/"+año, 'Tasa de Política Monetaria', 'Indicador Diario - Valor Porcentual', 'DÍA', 'PORCENTAJE');
   
 });
 
-botonUf.addEventListener("click", (e) => {
+botonUf.addEventListener("click", function(e) {
   e.preventDefault();
   coloresBoton(indicador, colorActual, "Uf")
   indicador = "uf";
-  traeDatosSerie(indicador+"/"+año, 'Valor Unidad de Fomento', 'Indicador Diario - Valor en pesos (CLP)', 'DÍA', 'PORCENTAJE');
+  traeDatosSerie(urlDatos+"/"+indicador+"/"+año, 'Valor Unidad de Fomento', 'Indicador Diario - Valor en pesos (CLP)', 'DÍA', 'PORCENTAJE');
 });
 
-botonIpc.addEventListener("click", (e) => {
+botonIpc.addEventListener("click",  function (e) {
   e.preventDefault();
   coloresBoton(indicador, colorActual, "Ipc")
   indicador = "ipc";
-  traeDatosSerie(indicador+"/"+año,'Índice de Precios al Consumidor', 'Indicador Mensual - Valor Porcentual', 'MES', 'PORCENTAJE');
+  traeDatosSerie(urlDatos+"/"+indicador+"/"+año,'Índice de Precios al Consumidor', 'Indicador Mensual - Valor Porcentual', 'MES', 'PORCENTAJE');
 });
 
-botonDolar.addEventListener("click", (e) => {
+botonDolar.addEventListener("click", function (e) {
   e.preventDefault();
   coloresBoton(indicador, colorActual, "Dolar")
   indicador = "dolar";
-  traeDatosSerie(indicador+"/"+año, 'Valor del Dólar Observado', 'Indicador Diario - Valor en pesos (CLP)', 'DÍA', 'PORCENTAJE');
+  traeDatosSerie(urlDatos+"/"+indicador+"/"+año, 'Valor del Dólar Observado', 'Indicador Diario - Valor en pesos (CLP)', 'DÍA', 'PORCENTAJE');
 });
 
-botonEuro.addEventListener("click", (e) => {
+botonEuro.addEventListener("click", function (e) {
   e.preventDefault();
   coloresBoton(indicador, colorActual, "Euro")
   indicador = "euro";
-  traeDatosSerie(indicador+"/"+año, 'Valor del Euro', 'Indicador Diario - Valor en pesos (CLP)', 'DÍA', 'PORCENTAJE');
+  traeDatosSerie(urlDatos+"/"+indicador+"/"+año, 'Valor del Euro', 'Indicador Diario - Valor en pesos (CLP)', 'DÍA', 'PORCENTAJE');
 });
 
-// Función asíncrona que trae los datos de la serie solicitada
-async function traeDatosSerie(indicador, titulo, subTitulo, ejeX, ejeY) {
+// Función asíncrona que trae los indicadores del día
+async function obtenerDatos (urlIndicadores) {
+  const respIndicadores = await fetch(urlIndicadores);
   
-  const urlSerie = `https://mindicador.cl/api/${indicador}`
-  const respSerie = await fetch(urlSerie);
-  const dataSerie = await respSerie.json();
+  try {
+    const dataIndicadores = await respIndicadores.json();
 
-  console.log(dataSerie);
-  dataSerie.serie.reverse();
-  createGraph(dataSerie, titulo, subTitulo, ejeX, ejeY); 
+    imacec.innerHTML = `Índice Mensual de Actividad Económica ${dataIndicadores.imacec.valor}%`;
+    tpm.innerHTML = `Tasa de Política Monetaria ${dataIndicadores.tpm.valor}%`;
+    uf.innerHTML = `Valor Unidad de Fomento $${dataIndicadores.uf.valor.toLocaleString()}`;
+    ipc.innerHTML = `Índice de Precios al Consumidor ${dataIndicadores.ipc.valor}%`;
+    dolar.innerHTML = `Valor del Dólar Observado $${dataIndicadores.dolar.valor.toLocaleString()}`;
+    euro.innerHTML = `Valor del Euro $${dataIndicadores.euro.valor.toLocaleString()}`;
+  }
+  
+  catch (error) {
+    alert ("Error al recuperar indices! ", error)
+  }
+
+};
+
+// Función asíncrona que trae los datos de la serie solicitada
+async function traeDatosSerie(urlSerie, titulo, subTitulo, ejeX, ejeY) {
+  
+  const respSerie = await fetch(urlSerie);
+  try {
+    const dataSerie = await respSerie.json();
+
+    dataSerie.serie.reverse();
+    createGraph(dataSerie, titulo, subTitulo, ejeX, ejeY); 
+  }
+  
+  catch (error) {
+    alert ("Error al recuperar serie! ", error)
+  }
+
 };
 
 // Creación del Gráfico
