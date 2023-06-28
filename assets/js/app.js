@@ -107,7 +107,8 @@ async function traeDatosSerie(urlSerie, titulo, subTitulo, ejeX, ejeY) {
     const dataSerie = await respSerie.json();
 
     dataSerie.serie.reverse();
-    createGraph(dataSerie, titulo, subTitulo, ejeX, ejeY); 
+    createGraph(dataSerie, titulo, subTitulo, ejeX, ejeY);
+    window.location.href = "#grafico"
   }
   
   catch (error) {
