@@ -1,0 +1,133 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  /*border: solid red;*/
+}
+
+body {
+  font-family: 'Roboto', sans-serif, Arial, Helvetica, sans-serif;
+  background-color: rgb (230, 230, 230);
+}
+
+nav {
+  position: relative; 
+  background-color: black;
+  padding: 15px 30px;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+li {
+  margin-right: 30px;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+}
+
+#logo-navbar {
+  max-width: 100px;
+  height: auto;
+}
+
+
+@media (max-width: 768px) {
+  ul {
+      background-color: rgb(230, 230, 230);
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      display: none;
+  }
+
+  li {
+      margin-right: 0;
+      margin-bottom: 15px;
+      text-align: center;
+  }
+
+  .nav-button {
+      display:inline;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+section {
+  background-color: rgb(230, 230, 230);
+  text-align: center;
+  font-size: 18px;
+}
+
+.card {
+  padding: 10px;
+}
+
+@media (max-width: 768px) {
+  section {
+    font-size: 14px;
+  }
+}
+
+.info-card {
+  --tw-text-opacity: 1;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 500;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.seleccionaYear {
+  position: relative;
+  padding: 5px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(50, 155, 170);
+  border: none;
+  display:center;
+  border-radius: 5px;
+  margin-top: auto;
+  margin-bottom: 20px;
+}
+
+.button[type="submit"] {
+  position: relative;
+  padding: 8px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(50, 155, 170);
+  border: none;
+  display:center;
+  border-radius: 5px;
+  margin-top: auto;
+  margin-bottom: 20px;
+}
+
+.grafico {
+  padding: 15px 15px;
+  background-color: rgb (230, 230, 230);
+  border: 15px;
+}
+
