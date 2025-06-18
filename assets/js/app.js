@@ -20,7 +20,7 @@ const urlDatos = `https://mindicador.cl/api`;
 
 var colorActual = document.getElementById("botonImacec").style.backgroundColor;
 var indicador = "imacec";
-var año = "2024"
+var año = new Date().getFullYear().toString();
 
 obtenerDatos(urlDatos);
 
@@ -103,6 +103,7 @@ async function obtenerDatos (urlIndicadores) {
 async function traeDatosSerie(urlSerie, titulo, subTitulo, ejeX, ejeY) {
   
   const respSerie = await fetch(urlSerie);
+  
   try {
     const dataSerie = await respSerie.json();
 
